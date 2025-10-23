@@ -6,9 +6,9 @@ const Navbar = () => {
 
     const button = <div className="flex flex-col md:flex-row gap-4 md:gap-10 items-start md:items-center justify-center ">
         <Link to={'/service'}>Services</Link>
+        <Link to={'/percel'}>Sent To Percel</Link>
         <Link to={'/coverage'}>Coverage</Link>
         <Link to={'/about'}>About Us</Link>
-        <Link to={'/pricing'}>Pricing</Link>
         <Link to={'/rider'}>Be a Rider</Link>
     </div>
 

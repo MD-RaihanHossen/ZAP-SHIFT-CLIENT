@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import AuthContextHook from "../../CustomHook/AuthContextHook";
 
@@ -12,11 +12,14 @@ const Login = () => {
 
     const navigate = useNavigate()
     
-
     const { register, handleSubmit, formState: { errors }, } = useForm()
 
+    const location = useLocation()
+    console.log(location)
+
+
     const onSubmit = (data) => {
-        console.log(data)
+       
 
         
 
@@ -26,7 +29,7 @@ const Login = () => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user)
-                navigate('/')
+                navigate(location.state ?  location.state : '/')
             })
             .catch((error) => {
                 const errorCode = error.code;

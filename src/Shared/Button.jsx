@@ -7,7 +7,7 @@ const Button = () => {
 
     //get uer for authProvider by authConrextHook
     const { user, logOut } = AuthContextHook()
-    console.log(user)
+    
 
     
 
