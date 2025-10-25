@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import AuthContextHook from "../../CustomHook/AuthContextHook";
+import AuthContextHook from "../../../CustomHook/AuthContextHook";
+import useAxiosSecure from "../../../CustomHook/useAxiosSecure";
+
+
 
 const SendToParcel = () => {
 
-    const { loader , user, } = AuthContextHook()
-
-    //is order confirm or not 
-    const [confirm, setConfirm] = useState(false)
-    console.log(confirm)
+    const { user, } = AuthContextHook()
+    const axiosSecure = useAxiosSecure()
 
     //this is my main data
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,25 +103,12 @@ const SendToParcel = () => {
 
     // Submit handler
     const onSubmit = (data) => {
-        console.log("form data", data);
 
         // --- Add created time and tracking ID ---
         const createdAt = new Date().toISOString(); // e.g., "2025-10-23T19:00:00Z"
         const trackingId = "TRK-" + Math.floor(100000 + Math.random() * 900000); // random 6-digit code
-        const status =  confirm ? "Confirm" : "Pending";
-    // you can update later: "Shipped", "Delivered", etc.
-        console.log(status)
-        // Combine everything into one parcel object
-        const parcelBase = {
-            ...data,
-            parcelType,
-            createdAt,
-            trackingId,
-            status,
-            user
-        };
+        const status = "Pending";
 
-        console.log("📦 Final Parcel Data:", parcelBase);
 
         const { weight, senderRegion, receiverRegion } = data;
         const withinCity = senderRegion === receiverRegion;
@@ -166,23 +153,40 @@ const SendToParcel = () => {
             confirmButtonText: "💳 Proceed to Pay Now",
             cancelButtonText: "Edit Again",
             reverseButtons: true,
-        }).then((result) => {
+        }).then( async (result) => {
             if (result.isConfirmed) {
                 console.log("✅ Parcel confirmed and ready to save.");
 
-                // 🆕 You can send parcelData to your backend or Firebase here:
-                // fetch("/api/parcels", { method: "POST", body: JSON.stringify(parcelData) });
-                setConfirm(true)
-                const finalStatus = "confirm"
+                // setConfirm(true)
+
                 const formData = {
-                    ...parcelBase,
+                    ...data,
                     cost,
-                    "status" : finalStatus,
+                    parcelType,
+                    createdAt,
+                    trackingId,
+                    status,
+                    user_email: user.email
 
                 }
-                console.log(formData)
 
-                reset(); // reset form after confirmation
+                try {
+                    // ✅ Use await here
+                    const response = await axiosSecure.post("/parcels", formData);
+                    console.log("✅ Server response:", response.data);
+
+                    if (response.data.success) {
+                        Swal.fire("✅ Parcel added successfully!");
+                        // reset(); // reset form from react-hook-form
+                    } else {
+                        Swal.fire("❌ Failed to add parcel.");
+                    }
+                } catch (error) {
+                    console.error("❌ Error posting data:", error);
+                    Swal.fire("❌ Something went wrong while sending data.");
+                }
+
+                // reset(); // reset form after confirmation
             } else {
                 console.log("🛑 User canceled editing.");
             }

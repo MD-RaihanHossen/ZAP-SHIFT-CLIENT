@@ -1,11 +1,11 @@
 import { motion } from "motion/react"
-import amazon from "../../assets/brands/amazon.png"
-import vector from "../../assets/brands/amazon_vector.png"
-import casio from "../../assets/brands/casio.png"
-import moonstar from "../../assets/brands/moonstar.png"
-import randstad from "../../assets/brands/randstad.png"
-import start from "../../assets/brands/start-people 1.png"
-import start1 from "../../assets/brands/start.png"
+import amazon from "../../../assets/brands/amazon.png"
+import vector from "../../../assets/brands/amazon_vector.png"
+import casio from "../../../assets/brands/casio.png"
+import moonstar from "../../../assets/brands/moonstar.png"
+import randstad from "../../../assets/brands/randstad.png"
+import start from "../../../assets/brands/start-people 1.png"
+import start1 from "../../../assets/brands/start.png"
 
 
 

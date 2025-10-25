@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import authImage from '../assets/authImage.png'
-import IconsProfast from "../Shared/IconsProfast";
+import authImage from '../../assets/authImage.png'
+import IconsProfast from "../../Shared/IconsProfast";
 
 
 

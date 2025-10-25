@@ -1,12 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../RootLayout/Home/Home";
-import RootLayout from "../RootLayout/RootLayout";
-import AuthLayOut from "../AuthLayOut/AuthLayOut";
-import Login from "../AuthLayOut/Login/Login";
-import Signup from "../AuthLayOut/Signup/Signup";
+import Home from "../LayOuts/RootLayout/Home/Home";
+import RootLayout from "../LayOuts/RootLayout/RootLayout";
+import AuthLayOut from "../LayOuts/AuthLayOut/AuthLayOut";
+import Login from "../LayOuts/AuthLayOut/Login/Login";
+import Signup from "../LayOuts/AuthLayOut/Signup/Signup";
 import Coverage from "../Pages/Coverage";
-import SendToParcel from "../AuthLayOut/Pages/SendToParcel";
+import SendToParcel from "../LayOuts/AuthLayOut/Pages/SendToParcel";
 import PrivetRoutes from "../Routes/PrivetRoutes";
+import DrshbordLayOut from "../LayOuts/DrshbordLayOut/DrshbordLayOut";
+import MyPercel from "../LayOuts/DrshbordLayOut/MyPercel/MyPercels";
 
 
 const Router = createBrowserRouter([
@@ -45,6 +47,16 @@ const Router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: 'drshbord', 
+        element: <PrivetRoutes><DrshbordLayOut></DrshbordLayOut></PrivetRoutes>,
+        children: [
+            {
+                path: 'mypercels',
+                Component: MyPercel,
+            }
+        ]
+    }
 
 ])
 

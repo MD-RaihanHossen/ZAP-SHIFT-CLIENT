@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaQuoteLeft } from "react-icons/fa";
-import customer_top from '../../assets/customer-top.png'
+import customer_top from '../../../assets/customer-top.png'
 
 export default function CustomerReview() {
   const reviews = [

@@ -2,3 +2,11 @@
 @plugin "daisyui" {
    themes: light --default;
  }
+
+
+a.active{
+  background-color: #CAEB66;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-weight: 700;
+}

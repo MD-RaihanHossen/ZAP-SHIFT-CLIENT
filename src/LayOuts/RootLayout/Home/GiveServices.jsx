@@ -1,6 +1,6 @@
-import traking from '../../assets/live-tracking.png'
-import safe from '../../assets/safe-de.png'
-import safe1 from '../../assets/safe-de.png'
+import traking from '../../../assets/live-tracking.png'
+import safe from '../../../assets/safe-de.png'
+import safe1 from '../../../assets/safe-de.png'
 
 const servicesData = [
   {

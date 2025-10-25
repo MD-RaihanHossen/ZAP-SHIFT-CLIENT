@@ -1,4 +1,4 @@
-import location_img from '../../assets/location-merchant.png'
+import location_img from '../../../assets/location-merchant.png'
 // import merchant_bg_img from '../../assets/be-a-merchant-bg.png'
 
 const CustomerSatisfaction = () => {

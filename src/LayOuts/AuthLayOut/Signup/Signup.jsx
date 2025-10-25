@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
-import AuthContextHook from "../../CustomHook/AuthContextHook";
+import AuthContextHook from "../../../CustomHook/AuthContextHook";
 
 
 const Signup = () => {

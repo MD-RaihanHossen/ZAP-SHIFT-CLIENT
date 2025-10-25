@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import AuthContextHook from "../CustomHook/AuthContextHook";
-import Loader from "../Loader/Loader";
+import Loader from "../Loader/Loader"; 
 
 
 const PrivetRoutes = ({ children }) => {

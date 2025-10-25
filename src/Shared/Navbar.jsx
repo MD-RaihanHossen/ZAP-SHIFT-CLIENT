@@ -1,15 +1,19 @@
-import { Link } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import IconsProfast from "./IconsProfast";
 import Button from "./Button"
+import AuthContextHook from "../CustomHook/AuthContextHook";
 
 const Navbar = () => {
 
-    const button = <div className="flex flex-col md:flex-row gap-4 md:gap-10 items-start md:items-center justify-center ">
-        <Link to={'/service'}>Services</Link>
-        <Link to={'/percel'}>Sent To Percel</Link>
-        <Link to={'/coverage'}>Coverage</Link>
-        <Link to={'/about'}>About Us</Link>
-        <Link to={'/rider'}>Be a Rider</Link>
+    const { user, } = AuthContextHook()
+
+    const button = <div className={"flex flex-col md:flex-row gap-4 md:gap-10 items-start md:items-center justify-center isActive"}>
+        <NavLink to={'/'}>Home</NavLink>
+       { user && <NavLink to={'/drshbord'}>Drshbord</NavLink>}
+        <NavLink to={'/percel'}>Sent To Percel</NavLink>
+        <NavLink to={'/coverage'}>Coverage</NavLink>
+        <NavLink to={'/about'}>About Us</NavLink>
+        <NavLink to={'/rider'}>Be a Rider</NavLink>
     </div>
 
     return (

@@ -9,8 +9,6 @@ const Button = () => {
     const { user, logOut } = AuthContextHook()
     
 
-    
-
     const hendleLogOut = () => {
         // console.log(hendleLogOut)
 
@@ -34,7 +32,7 @@ const Button = () => {
                         <Link to={'login'} className="text-xl font-bold btn text-gray-500">Sign In</Link>
                     </div>
                 }
-                <Link to={'login'} className="text-xl font-bold btn bg-[#CAEB66]">Be a rider</Link>
+                <Link to={'login'} className=" lg:text-xl lg:font-bold sm:30px btn bg-[#CAEB66]">Be a rider</Link>
                 <div className="text-3xl rotate-[40deg] ">
                     <FaCircleArrowUp className="text-[#CAEB66]" />
                 </div>
