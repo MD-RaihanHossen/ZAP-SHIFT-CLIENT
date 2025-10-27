@@ -21,17 +21,17 @@ const SendToParcel = () => {
     const [parcelType, setParcelType] = useState("Document");
 
 
-    //sender and reciver Region here
+    //sender and reciver Region here || Devition
     const [senderRegion, setSenderRegion] = useState("");
     const [receiverRegion, setReceiverRegion] = useState("");
 
 
-    //sender and reciver covered_area here
+    //sender and reciver covered_area here || districts
     const [filteredSenderDistricts, setFilteredSenderDistricts] = useState([]);
     const [filteredReceiverDistricts, setFilteredReceiverDistricts] = useState([]);
 
 
-    //  Get unique regions safely
+    //  Get unique regions safely || Devition
     const uniqueRegions = Array.isArray(districts)
         ? [...new Set(districts.map((item) => item.region))]
         : [];
@@ -42,6 +42,7 @@ const SendToParcel = () => {
     // Sender Region → get its covered_area
     useEffect(() => {
         if (!Array.isArray(districts)) return;
+
         const selected = districts.find((r) => r.region === senderRegion);
 
 
@@ -52,7 +53,7 @@ const SendToParcel = () => {
                 selected.district,
                 ...(Array.isArray(selected.covered_area) ? selected.covered_area : []),
             ];
-            setFilteredSenderDistricts(serviceCenters);
+            setFilteredSenderDistricts(serviceCenters); // || districts
         } else {
             setFilteredSenderDistricts([]);
         }
@@ -77,7 +78,6 @@ const SendToParcel = () => {
     const {
         register,
         handleSubmit,
-        watch,
         reset,
         formState: { errors },
     } = useForm({
@@ -103,6 +103,7 @@ const SendToParcel = () => {
 
     // Submit handler
     const onSubmit = (data) => {
+        console.log(data)
 
         // --- Add created time and tracking ID ---
         const createdAt = new Date().toISOString(); // e.g., "2025-10-23T19:00:00Z"
@@ -171,7 +172,9 @@ const SendToParcel = () => {
                 }
 
                 try {
-                    // ✅ Use await here
+                    //Post Sendparcels data to mongodb 1st work with mongodb
+
+                    // Use await here sent to data base 
                     const response = await axiosSecure.post("/parcels", formData);
                     console.log("✅ Server response:", response.data);
 

@@ -15,7 +15,7 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm()
 
     const location = useLocation()
-    console.log(location)
+    // console.log(location)
 
 
     const onSubmit = (data) => {

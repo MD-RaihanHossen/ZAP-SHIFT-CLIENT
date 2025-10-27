@@ -9,6 +9,8 @@ import SendToParcel from "../LayOuts/AuthLayOut/Pages/SendToParcel";
 import PrivetRoutes from "../Routes/PrivetRoutes";
 import DrshbordLayOut from "../LayOuts/DrshbordLayOut/DrshbordLayOut";
 import MyPercel from "../LayOuts/DrshbordLayOut/MyPercel/MyPercels";
+import Payments from "../LayOuts/DrshbordLayOut/PayOrders/Payments";
+import PaymentHistory from "../LayOuts/DrshbordLayOut/PaymentHistory/PaymentHistory";
 
 
 const Router = createBrowserRouter([
@@ -54,7 +56,16 @@ const Router = createBrowserRouter([
             {
                 path: 'mypercels',
                 Component: MyPercel,
+            }, 
+            {
+                path: 'payments/:percelId', ///drshbord/payments/${id} came from Mypercel Pay Button 
+                Component: Payments,
+            },
+            {
+                path: 'paymenthistory',
+                Component: PaymentHistory,
             }
+
         ]
     }
 
