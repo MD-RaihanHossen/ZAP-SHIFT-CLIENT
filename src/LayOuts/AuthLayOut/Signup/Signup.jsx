@@ -2,23 +2,75 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import AuthContextHook from "../../../CustomHook/AuthContextHook";
+import { useState } from "react";
+import axios from "axios";
+import AxiosBaseUrl from "../../../CustomHook/AxiosBaseUrl";
+import Swal from "sweetalert2";
+
 
 
 const Signup = () => {
 
-    const { singup } = AuthContextHook()
+    const { singup, updateUserProfile } = AuthContextHook()
+    const [photo, setPhoto] = useState('')
+    const useAxiosBase = AxiosBaseUrl()
 
     const { register, handleSubmit, formState: { errors }, } = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = async (data) => {
+        // console.log(data)
+
+        if (!photo) return alert("Please select a photo");
+        
+
+
 
         //create a user 
         singup(data.email, data.password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
-                console.log(user)
+
+                //update user profile 
+                updateUserProfile({
+                    displayName: data.Name,
+                    photoURL: photo,
+                })
+                    .then(() => {
+                        console.log('profile upload succesfuly')
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+                // console.log(user)
+
+                const userData = {
+                    name: data.Name,
+                    email: data.email,
+                    photo: photo,
+                    "createdAt": new Date().toISOString(), "current_login_time": new Date().toISOString()
+                };
+
+                // console.log(userData)
+
+                //post to user new collections
+                try {
+                    const res = await useAxiosBase.post("/usersdata", userData);
+                    // console.log("Response:", res.data);
+                    if (res.data?.user?.insertedId) {
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: res.data.message || "User data saved successfully!",
+                            icon: "success",
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#3085d6",
+                        });
+                    }
+                } catch (err) {
+                    console.error("Error sending user data:", err);
+                }
+
+
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -26,6 +78,24 @@ const Signup = () => {
                 console.log(errorCode, errorMessage)
             });
     }
+
+
+    const hendleImages = async (e) => {
+        const image = e.target.files[0]
+
+        const formData = new FormData();
+        formData.append("image", image);
+
+        //here usesing image bb api 
+        const uploadRes = await axios.post(
+            `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_for_images_uploade}`,
+            formData
+        );
+        const imageUrl = uploadRes.data.data.url;
+        // console.log("Image URL:", imageUrl);
+        setPhoto(imageUrl)
+    }
+    //VITE_for_images_uploade
 
     return (
         <div>
@@ -35,7 +105,20 @@ const Signup = () => {
                 <fieldset className="fieldset w-[350px]">
                     <label className="label">Name</label>
                     {/* name input  */}
-                    <input {...register("Name", { required: true })} type="text" className="input w-full" placeholder="Name" />
+                    <input {...register("Name", { required: true })} type="text" className="input " placeholder="Name" />
+
+
+                    <div className="flex gap-5 justify-center items-center">
+                        <div className="w-[100px] h-[80px] border rounded-xl">
+                            <img className=" w-full h-full object-cover rounded-xl p-1" src={photo} alt="" />
+                        </div>
+                        <div>
+                            <label className="label">Photo</label>
+                            {/* photo */}
+                            <input accept="image/*" onChange={hendleImages} required type="file" className="input w-full " placeholder="Your Photo" />
+                        </div>
+
+                    </div>
 
                     <label className="label">Email</label>
                     {/* email input  */}
