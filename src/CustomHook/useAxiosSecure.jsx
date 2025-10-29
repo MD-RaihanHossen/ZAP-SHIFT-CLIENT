@@ -11,7 +11,7 @@ const useAxiosSecure = () => {
 
     //call user form Context hook
     const { user } = AuthContextHook()
-    console.log(user)
+    // console.log(user)
 
     axiosSecure.interceptors.request.use((config) => {
         //set to token in server

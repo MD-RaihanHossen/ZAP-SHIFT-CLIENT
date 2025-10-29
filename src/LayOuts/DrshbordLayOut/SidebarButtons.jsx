@@ -6,6 +6,8 @@ import {
   FaUserTie,
   FaInfoCircle,
   FaHeadset,
+  FaClock,
+  FaCheckCircle
 } from "react-icons/fa";
 
 const SidebarButtons = () => {
@@ -31,7 +33,20 @@ const SidebarButtons = () => {
         <FaHistory className="text-lg" /> Payment History
       </NavLink>
 
-      {/* Additional */}
+      {/* New Buttons */}
+
+      <NavLink to="activeRiders" className={linkClass}>
+        <FaCheckCircle className="text-lg" /> Active Riders
+      </NavLink>
+
+
+      <NavLink to="pendingRiders" className={linkClass}>
+        <FaClock className="text-lg" /> Pending Riders
+      </NavLink>
+
+      
+
+      {/* Divider */}
       <hr className="my-2 border-gray-300" />
 
       <NavLink to="/about" className={linkClass}>
