@@ -1,20 +1,48 @@
+import Swal from "sweetalert2";
 import AuthContextHook from "../../../CustomHook/AuthContextHook";
+import AxiosBaseUrl from "../../../CustomHook/AxiosBaseUrl";
 
 
 const SocialLogin = () => {
 
     const { createUserWithSocial } = AuthContextHook()
+    const useAxiosBase = AxiosBaseUrl()
 
     const hendleUsers = () => {
-        console.log('raihan')
+
         createUserWithSocial()
-            .then(result => {
+            .then( async(result) => {
                 const user = result.user;
-                console.log(user)
+                // console.log(user)
+
+                const userData = {
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                    "createdAt": new Date().toISOString(), "current_login_time": new Date().toISOString()
+                };
+                // console.log(userData)
+                //post to user new collections
+                try {
+                    const res = await useAxiosBase.post("/usersdata", userData);
+                    // console.log("Response:", res.data);
+                    if (res.data?.user?.insertedId) {
+
+                        Swal.fire({
+                            title: "Success!",
+                            text: res.data.message || "User data saved successfully!",
+                            icon: "success",
+                            confirmButtonText: "OK",
+                            confirmButtonColor: "#3085d6",
+                        });
+                    }
+                } catch (err) {
+                    console.error("Error sending user data:", err);
+                }
             })
             .catch(error => {
-                 const errorMessage = error.message;
-                 console.log(errorMessage)
+                const errorMessage = error.message;
+                console.log(errorMessage)
             })
     }
 

@@ -10,7 +10,6 @@ const AuthProvider = ({children}) => {
 
     //useState for user 
     const [user, setUser] = useState(null)
-  
 
     //make loader for lodding
     const [loader, setLoader] = useState(true)

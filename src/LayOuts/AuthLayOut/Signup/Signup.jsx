@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 const Signup = () => {
 
     const { singup, updateUserProfile } = AuthContextHook()
-    const [photo, setPhoto] = useState('')
+    const [photo, setPhoto] = useState(null)
     const useAxiosBase = AxiosBaseUrl()
 
     const { register, handleSubmit, formState: { errors }, } = useForm()
