@@ -47,6 +47,7 @@ const Signup = () => {
                     name: data.Name,
                     email: data.email,
                     photo: photo,
+                    "roll" : 'user',
                     "createdAt": new Date().toISOString(), "current_login_time": new Date().toISOString()
                 };
 

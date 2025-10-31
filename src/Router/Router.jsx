@@ -14,6 +14,9 @@ import PaymentHistory from "../LayOuts/DrshbordLayOut/PaymentHistory/PaymentHist
 import BeRiders from "../Pages/Be_a_Riders/BeRiders";
 import PendingRiders from "../LayOuts/DrshbordLayOut/Pending_Riders/PendingRiders";
 import ActiveRiders from "../LayOuts/DrshbordLayOut/ActiveR_Riders/ActiveRiders";
+import Admin from "../LayOuts/DrshbordLayOut/Admin/Admin";
+import AdminRoutes from "../Routes/AdminRoutes";
+import Forbiden from "../Shared/Forbiden";
 
 
 const Router = createBrowserRouter([
@@ -24,6 +27,10 @@ const Router = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
+            },
+            {
+                path: 'forbiden', 
+                Component: Forbiden,
             },
             {
                 path: 'coverage',
@@ -80,12 +87,16 @@ const Router = createBrowserRouter([
             },
             {
                 path: 'pendingRiders',
-                Component: PendingRiders,
+                element: <AdminRoutes> <PendingRiders></PendingRiders> </AdminRoutes>,
             },
             {
                 path: 'activeRiders',
-                Component: ActiveRiders,
+                element: <AdminRoutes> <ActiveRiders></ActiveRiders> </AdminRoutes>,
             },
+            {
+                path: 'admin',
+                element: <AdminRoutes> <Admin></Admin> </AdminRoutes>,
+            }
 
         ]
     }

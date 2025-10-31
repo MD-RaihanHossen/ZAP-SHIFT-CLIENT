@@ -28,7 +28,7 @@ const PaymentHistory = () => {
         return <Loader></Loader>
     }
 
-    console.log(paymentHistory)
+
     return (
         <div className="max-w-5xl mx-auto mt-10 p-6 bg-base-100 rounded-2xl shadow-md">
             <h2 className="text-2xl font-semibold flex items-center gap-2 mb-5">

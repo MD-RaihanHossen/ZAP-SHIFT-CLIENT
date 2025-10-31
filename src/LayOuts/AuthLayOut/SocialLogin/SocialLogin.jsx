@@ -1,17 +1,19 @@
 import Swal from "sweetalert2";
 import AuthContextHook from "../../../CustomHook/AuthContextHook";
 import AxiosBaseUrl from "../../../CustomHook/AxiosBaseUrl";
+import { useNavigate } from "react-router-dom";
 
 
 const SocialLogin = () => {
 
     const { createUserWithSocial } = AuthContextHook()
     const useAxiosBase = AxiosBaseUrl()
+    const navigate = useNavigate()
 
     const hendleUsers = () => {
 
         createUserWithSocial()
-            .then( async(result) => {
+            .then(async (result) => {
                 const user = result.user;
                 // console.log(user)
 
@@ -35,7 +37,9 @@ const SocialLogin = () => {
                             confirmButtonText: "OK",
                             confirmButtonColor: "#3085d6",
                         });
+
                     }
+                    navigate('/')
                 } catch (err) {
                     console.error("Error sending user data:", err);
                 }

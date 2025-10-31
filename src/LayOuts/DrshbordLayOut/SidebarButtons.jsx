@@ -7,15 +7,22 @@ import {
   FaInfoCircle,
   FaHeadset,
   FaClock,
+  FaUserShield,
   FaCheckCircle
 } from "react-icons/fa";
+import UseAdminHook from "../../CustomHook/UseAdminHook";
+
+
 
 const SidebarButtons = () => {
+
+  const [isAdmin, isLoading,] = UseAdminHook()
+
+
   const linkClass = ({ isActive }) =>
-    `flex items-center gap-3 px-4 py-2 rounded-lg w-full transition ${
-      isActive
-        ? "bg-blue-600 text-white shadow-md"
-        : "text-gray-700 hover:bg-gray-100"
+    `flex items-center gap-3 px-4 py-2 rounded-lg w-full transition ${isActive
+      ? "bg-blue-600 text-white shadow-md"
+      : "text-gray-700 hover:bg-gray-100"
     }`;
 
   return (
@@ -33,18 +40,26 @@ const SidebarButtons = () => {
         <FaHistory className="text-lg" /> Payment History
       </NavLink>
 
-      {/* New Buttons */}
+      {/* if admin and not loader are true then time it going to show  */}
+      {
+        !isLoading && isAdmin.roll === "admin" && 
+        <>
+          <NavLink to="activeRiders" className={linkClass}>
+            <FaCheckCircle className="text-lg" /> Active Riders
+          </NavLink>
 
-      <NavLink to="activeRiders" className={linkClass}>
-        <FaCheckCircle className="text-lg" /> Active Riders
-      </NavLink>
+
+          <NavLink to="pendingRiders" className={linkClass}>
+            <FaClock className="text-lg" /> Pending Riders
+          </NavLink>
+
+          <NavLink to="admin" className={linkClass}>
+            <FaUserShield className="text-lg" /> Admin
+          </NavLink>
+        </>
+      }
 
 
-      <NavLink to="pendingRiders" className={linkClass}>
-        <FaClock className="text-lg" /> Pending Riders
-      </NavLink>
-
-      
 
       {/* Divider */}
       <hr className="my-2 border-gray-300" />

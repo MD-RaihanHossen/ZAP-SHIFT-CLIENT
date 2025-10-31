@@ -19,8 +19,8 @@ const PendingRiders = () => {
     });
 
     // handle accept / cancel with one function
-    const handleStatusChange = async(id, status) => {
-
+    const handleStatusChange = async(id, status, email) => {
+        console.log(email)
         Swal.fire({
             title: `Are you sure? ${status}`,
             text: "You won't be able to revert this!",
@@ -34,7 +34,7 @@ const PendingRiders = () => {
 
                 //this is change to status that approved or cancel
                 try {
-                    const res = await axiosSecure.patch(`/riders/status/${id}`, { status });
+                    const res = await axiosSecure.patch(`/riders/status/${id}`, { status, email });
                     console.log(res.data)
 
                     if (res.data.modifiedCount > 0) {
@@ -109,7 +109,7 @@ const PendingRiders = () => {
 
                                     {/* ✅ Accept */}
                                     <button
-                                        onClick={() => handleStatusChange(rider._id, "approved")}
+                                        onClick={() => handleStatusChange(rider._id, "approved", rider.email)}
                                         className="btn btn-xs bg-green-600 text-white"
                                     >
                                         Accept
@@ -117,7 +117,7 @@ const PendingRiders = () => {
 
                                     {/* ✅ Cancel */}
                                     <button
-                                        onClick={() => handleStatusChange(rider._id, "rejected")}
+                                        onClick={() => handleStatusChange(rider._id, "rejected" , rider.email)}
                                         className="btn btn-xs bg-red-600 text-white"
                                     >
                                         Cancel

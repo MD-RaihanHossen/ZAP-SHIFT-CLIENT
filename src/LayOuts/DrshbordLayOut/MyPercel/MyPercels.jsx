@@ -10,8 +10,10 @@ const MyPercels = () => {
   const axiosSecure = useAxiosSecure()
   const navigation = useNavigate()
 
+  console.log(user)
+
   //useQuery with Axios call the data what i have put in 1st time get kora holo 1st time  
-  const { data: mypercels = [], isLoading, isError, refetch } = useQuery({
+  const { data: mypercels = [], isLoading, isError, error, refetch } = useQuery({
     queryKey: ["mypercels", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/mypercels?email=${user.email}`); //aita je login korete tar email query hishe deya hoiche 
@@ -19,6 +21,8 @@ const MyPercels = () => {
       return res.data.data; // access your backend response
     },
   });
+
+  console.log(error)
 
   const hendlePay = (id) => {
     navigation(`/drshbord/payments/${id}`)
